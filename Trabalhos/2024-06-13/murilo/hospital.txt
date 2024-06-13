@@ -1,0 +1,67 @@
+CREATE TABLE paciente(
+    id_paciente INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+    nm_paciente TEXT NOT NULL,
+    dt_nascimento_paciente DATETIME NOT NULL
+    
+);
+
+CREATE TABLE telefone (
+    id_telefone INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_paciente INT NOT NULL,
+    nr_telefone_paciente TEXT NOT NULL,
+    ddd_paciente INT NOT NULL,
+    CONSTRAINT fk_telefone_paciente FOREIGN KEY (id_paciente) REFERENCES paciente(id_paciente)
+);
+
+CREATE TABLE consulta (
+    id_consulta INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_paciente INT NOT NULL,
+    id_medico_consulta INT NOT NULL,
+    dt_consulta DATETIME NOT NULL,
+    CONSTRAINT fk_consulta_paciente FOREIGN KEY (id_paciente) REFERENCES paciente(id_paciente),
+    CONSTRAINT fk_consulta_medico FOREIGN KEY (id_medico_consulta) REFERENCES medico(id_medico)
+);
+
+CREATE TABLE medico (
+    id_medico INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_medico_especialidade INT NOT NULL,
+    nm_medico TEXT NOT NULL,
+    CONSTRAINT fk_medico_especialidade FOREIGN KEY (id_medico_especialidade) REFERENCES especialidade(id_especialidade)
+);
+
+CREATE TABLE especialidade (
+    id_especialidade INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+    nm_especialidade TEXT NOT NULL, 
+    ic_ativo TINYINT NULL DEFAULT 1
+);
+
+INSERT INTO especialidade (nm_especialidade) VALUES
+ ('Cardiologia'),
+ ('Pediatria'),
+('Ginecologia'),
+('Dermatologia'),
+('Gastroenterologia');
+INSERT INTO medico (id_medico_especialidade, nm_medico) VALUES
+ (1, 'Dr. João'),
+ (2, 'Dra. Maria'),
+(3, 'Dr. Pedro'),
+(4, 'Dr. Eduardo'),
+(5, 'Dr. Pedro');
+INSERT INTO paciente (nm_paciente, dt_nascimento_paciente) VALUES 
+('Ana Silva', '1990-05-15'),
+('Carlos Oliveira', '1985-10-20'),
+('Mariana Santos', '2000-03-08'),
+('Maria Adelia', '2001-03-08'),
+('Mariy Oliveira', '2002-03-08');
+INSERT INTO telefone (id_paciente, nr_telefone_paciente, ddd_paciente) VALUES 
+(1, '999999999', 11),
+(2, '888888888', 22),
+(3, '777777777', 33),
+(4, '666666666', 33),
+(5, '555555555', 33);
+INSERT INTO consulta (id_paciente, id_medico_consulta, dt_consulta) VALUES 
+(1, 1, '2024-06-10 09:00:00'),
+(2, 2, '2024-06-11 10:00:00'),
+(3, 3, '2024-06-12 11:00:00'),
+(4, 4, '2024-08-23 08:00:00'),
+(5, 5, '2024-02-04 18:00:00');
