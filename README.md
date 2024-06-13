@@ -16,4 +16,3 @@ Repositório da Disciplina Banco de Dados (Primeiro Semestre) - Turma 2024
 [Trabalhos práticos do dia 13-06-2024 - Valor 3,0 Pontos](Trabalhos/2024-06-13/)
 
 - [Issue referente a entrega](https://github.com/gustavopereiraliceusantista/banco-de-dados/issues/16)
-
