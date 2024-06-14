@@ -1,0 +1,76 @@
+create database hospital;
+
+use hospital;
+
+create table paciente
+(
+    id_paciente int not null auto_increment, 
+    nm_paciente text not null,
+    dt_nascimento_paciente datetime not null,
+	CONSTRAINT pk_id_paciente PRIMARY KEY(id_paciente)
+);
+
+insert into paciente values (null, 'Caio', now());
+insert into paciente values (null, 'Murilo', now());
+insert into paciente values (null, 'Luan', now());
+insert into paciente values (null, 'Danilo', now());
+insert into paciente values (null, 'Thiago', now());
+
+create table medico (
+    id_medico int not null auto_increment,
+    id_especialidade_medico int not null,
+    nm_medico text not null,
+	CONSTRAINT pk_id_medico PRIMARY KEY(id_medico),
+    CONSTRAINT fk_id_especialidade_medico FOREIGN KEY(id_especialidade_medico) REFERENCES especialidade(id_especialidade)
+);
+
+insert into medico values (null, 1, 'Jose');
+insert into medico values (null, 2, 'Alberto');
+insert into medico values (null, 3, 'Roberto');
+insert into medico values (null, 4, 'Augusto');
+insert into medico values (null, 5, 'Carlos');
+
+create table especialidade (
+    id_especialidade int not null auto_increment, 
+    nm_especialidade text not null, 
+    ic_ativo tinyint null default 1,
+    CONSTRAINT pk_id_especialidade PRIMARY KEY(id_especialidade)
+);
+
+insert into especialidade values (null, 'Cardiologista', null);
+insert into especialidade values (null, 'Ortopedista', null);
+insert into especialidade values (null, 'Psiquiatra', null);
+insert into especialidade values (null, 'Oftalmologista', null);
+insert into especialidade values (null, 'Dermatologista', null);
+
+
+create table telefone (
+	id_tel int not null auto_increment,
+    ddd tinyint null,
+    nr_tel int null,
+    id_paciente_tel int not null,
+    CONSTRAINT pk_id_tel PRIMARY KEY(id_tel),
+    CONSTRAINT fk_id_paciente_tel FOREIGN KEY(id_paciente_tel) REFERENCES paciente(id_paciente)
+);
+
+insert into telefone values (null, 13, 123456789, 1);
+insert into telefone values (null, 21, 234567891, 2);
+insert into telefone values (null, 55, 12345789, 3);
+insert into telefone values (null, 47, 254315874, 4);
+insert into telefone values (null, 99, 21536478, 1);
+
+create table consulta (
+	id_consulta int not null auto_increment,
+    dt_consulta_paciente datetime not null,
+    id_paciente_consulta int not null,
+    id_medico_consulta int not null,
+    CONSTRAINT pk_id_consulta PRIMARY KEY(id_consulta),
+    CONSTRAINT fk_id_paciente_consulta FOREIGN KEY(id_paciente_consulta) REFERENCES paciente(id_paciente),
+    CONSTRAINT fk_id_medico_consulta FOREIGN KEY(id_medico_consulta) REFERENCES medico(id_medico)
+);
+
+insert into consulta values (null, now(), 1, 1);
+insert into consulta values (null, now(), 2, 2);
+insert into consulta values (null, now(), 3, 3);
+insert into consulta values (null, now(), 4, 4);
+insert into consulta values (null, now(), 5, 5);
